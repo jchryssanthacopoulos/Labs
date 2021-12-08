@@ -48,6 +48,9 @@ if __name__ == "__main__":
     print(f"Intercept = {b}")
     print(f"R^2 = {r2}")
 
+    plt.rcParams.update({'font.size': 20})
+
+    plt.figure(figsize=(9, 7))
     plt.errorbar(x, y, yerr=sigma, fmt='.', c='b')
     x_interp = np.linspace(x[0] - 10, x[-1] + 10, 100)
     y_interp = [m * x_i + b for x_i in x_interp]
@@ -55,7 +58,9 @@ if __name__ == "__main__":
     plt.grid()
     plt.xlim([xmin, xmax])
     plt.ylim([ymin, ymax])
-    plt.xlabel("$(Z-1)^2$")
-    plt.ylabel("Energy (keV)")
+    # plt.xticks(range(600, 875, 50), fontsize=20)
+    # plt.yticks(np.arange(6, 8.75, 0.5), fontsize=20)
+    plt.xlabel("$(Z-1)^2$", fontsize=20)
+    plt.ylabel("Energy (keV)", fontsize=20)
     plt.title("$R^2 = {:.2f}$".format(r2))
     plt.show()

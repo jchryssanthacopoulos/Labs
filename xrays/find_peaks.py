@@ -34,7 +34,7 @@ def find_peaks(
             data = np.array([max(0, d) for d in data])
         else:
             plt.plot(x, data_bg, label="background")
-    plt.plot(x, data, label="sample", lw=0.5)
+    plt.plot(x, data, label="sample", lw=1)
 
     # fit gaussians
     if xgfit:
@@ -49,8 +49,11 @@ def find_peaks(
             plt.plot(x_g, y_g)
 
     plt.grid()
-    plt.xlabel("Energy (keV)")
-    plt.ylabel("Counts")
+    plt.xticks(fontsize=17)
+    plt.yticks(fontsize=17)
+    plt.xlabel("Energy (keV)", fontsize=17)
+    plt.ylabel("Counts", fontsize=17)
+    plt.tight_layout()
 
     if title:
         plt.title(title)

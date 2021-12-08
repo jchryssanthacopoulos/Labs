@@ -3,11 +3,11 @@
 
 # K alpha transitions
 python fit_moseleys_law.py \
-    --z 26,28,29,40,48 \
-    --energies 6.36,7.45,8.02,15.7,23.23 \
-    --sigma 0.1,0.11,0.1,0.15,0.01 \
-    --xrange 600,2400 \
-    --yrange 6.0,24
+    --z 26,28,29 \
+    --energies 6.36,7.45,8.02 \
+    --sigma 0.1,0.11,0.1 \
+    --xrange 600,825 \
+    --yrange 6.0,8.25
 
 # lower bound (1.04e-2)
 python fit_moseleys_law.py \

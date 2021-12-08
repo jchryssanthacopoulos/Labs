@@ -37,40 +37,34 @@ def fit_gauss(x: np.array, y: np.array, x_min: float, x_max: float):
 
 
 # calibration coefficients
-m = 0.0224131
-b = 0.03844653
+m = 0.022380199175391177
+b = 0.1768127359558065
 
 
-xrange = [0, 16]
-yrange = [0, 20]
+xrange = [0, 70]
+yrange = [0, 110]
 
 
 # load data
-data1 = np.loadtxt("files/generator_background.txt", delimiter = "/t")
+data1 = np.loadtxt("files/energy_calibration_10min.txt", delimiter = "/t")
 x = np.array([m * i + b for i in range(len(data1))])
 
 # get gaussian fits
-xg_1, yg_1 = fit_gauss(x, data1, 2.35, 2.85)
-xg_2, yg_2 = fit_gauss(x, data1, 2.6, 3.3)
-xg_3, yg_3 = fit_gauss(x, data1, 7.3, 8.6)
-xg_4, yg_4 = fit_gauss(x, data1, 8.5, 10)
-xg_5, yg_5 = fit_gauss(x, data1, 10, 11)
-xg_6, yg_6 = fit_gauss(x, data1, 12, 13.2)
+xg_1, yg_1 = fit_gauss(x, data1, 13.6, 14.5)
+xg_2, yg_2 = fit_gauss(x, data1, 17.4, 18.3)
+xg_3, yg_3 = fit_gauss(x, data1, 59.04, 60.16)
 
 # plot
 plt.figure(figsize=(8, 6))
 plt.plot(x, data1, lw=1)
-plt.plot(xg_1, yg_1, 'k')
-plt.plot(xg_2, yg_2, 'k')
-plt.plot(xg_3, yg_3, 'k')
-plt.plot(xg_4, yg_4, 'k')
-plt.plot(xg_5, yg_5, 'k')
-plt.plot(xg_6, yg_6, 'k')
+plt.plot(xg_1, yg_1, 'k', lw=2)
+plt.plot(xg_2, yg_2, 'k', lw=2)
+plt.plot(xg_3, yg_3, 'k', lw=2)
 plt.grid()
 plt.xlim(xrange)
 plt.ylim(yrange)
-plt.xticks(range(0, 18, 2), fontsize=17)
-plt.yticks([0, 5, 10, 15, 20], fontsize=17)
+plt.xticks(range(0, 80, 10), fontsize=17)
+plt.yticks(range(0, 120, 10), fontsize=17)
 plt.xlabel("Energy (keV)", fontsize=17)
 plt.ylabel("Counts", fontsize=17)
 plt.show()

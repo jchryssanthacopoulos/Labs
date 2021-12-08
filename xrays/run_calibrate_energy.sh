@@ -14,8 +14,24 @@ python find_peaks.py \
 
 
 # calibrate
+# m = 0.022380199175391177
+# b = 0.04870416329590199
 python calibrate_energy.py \
-    --channel 619.53,780.30,2652.84 \
+    --channel 619.53,789.30,2652.84 \
+    --energy 13.95,17.74,59.54
+
+# mean - std dev
+# A = 0.022464205326334332
+# B = 0.17288010801630094
+python calibrate_energy.py \
+    --channel 613.04,782.28,2642.72 \
+    --energy 13.95,17.74,59.54
+
+# mean + std dev
+# A = 0.022386390948783034
+# B = -0.07504098102111101
+python calibrate_energy.py \
+    --channel 626.02,796.32,2662.96 \
     --energy 13.95,17.74,59.54
 
 
@@ -31,30 +47,3 @@ python find_peaks.py \
     --fn files/energy_calibration_10min.txt \
     --cc 0.022380199175391177,0.1768127359558065 \
     --xrange 0,60
-
-
-# calibrate with different mean +/- std dev
-# 612.49 - 626.18
-# 782.089 - 796.599
-# 2641.602 - 2663.334
-
-# mean
-# A = 0.02242843814474726
-# B = 0.04827938073740867
-python calibrate_energy.py \
-    --channel 619.334,789.344,2652.468 \
-    --energy 13.95,17.74,59.54
-
-# mean - std dev
-# A = 0.02247252198379239
-# B = 0.1756112489782815
-python calibrate_energy.py \
-    --channel 612.49,782.089,2641.602 \
-    --energy 13.95,17.74,59.54
-
-# mean + std dev
-# A = 0.022384539775794927
-# B = -0.07858632563091561
-python calibrate_energy.py \
-    --channel 626.18,796.599,2663.334 \
-    --energy 13.95,17.74,59.54
