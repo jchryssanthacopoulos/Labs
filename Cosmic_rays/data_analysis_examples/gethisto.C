@@ -84,7 +84,16 @@ TGraph *getSignal(const char *name_file, int nSamples=250, short chan=0, int nrE
 }
 
 
-TH1D* getHistoWithFilterFromChannel(const char *name_file, int numBins, double minX, double maxX, short chan1, short chan2, double thres1, double thres2) {
+TH1D* getHistoWithFilterFromChannel(
+	const char *name_file,
+	int numBins,
+	double minX,
+	double maxX,
+	short chan1,
+	short chan2,
+	double thres1,
+	double thres2
+) {
 	// variables
 	slimport_data_t indata1, indata2;
 	TFile *infile = new TFile(name_file);
@@ -101,6 +110,69 @@ TH1D* getHistoWithFilterFromChannel(const char *name_file, int numBins, double m
 		if (indata2.qlong>thres1 && indata2.qlong<thres2) {
 			h_spectrum->Fill(indata1.qlong);
 		}
+	}
+	// return
+	return h_spectrum;
+}
+
+
+TH1D* getHistoWithFilterFromChannelWithCalibration(
+	const char *name_file,
+	const char *histo_name,
+	int numBins,
+	double minX,
+	double maxX,
+	short chan1,
+	short chan2,
+	double thres1,
+	double thres2,
+	double mCalibCoef,
+	double bCalibCoef
+) {
+	// variables
+	slimport_data_t indata1, indata2;
+	TFile *infile = new TFile(name_file);
+	TTree *intree = (TTree*)infile->Get("acq_tree_0");
+	TBranch *inbranch1 = intree->GetBranch(Form("acq_ch%d",chan1));
+	TBranch *inbranch2 = intree->GetBranch(Form("acq_ch%d",chan2));
+	inbranch1->SetAddress(&indata1.timetag);
+	inbranch2->SetAddress(&indata2.timetag);
+	TH1D *h_spectrum = new TH1D("h_spectrum",histo_name,numBins,minX,maxX);
+	// histogram filling
+	for (int i=0; i<inbranch1->GetEntries(); i++) {
+		inbranch1->GetEntry(i);
+		inbranch2->GetEntry(i);
+		if (indata2.qlong>thres1 && indata2.qlong<thres2) {
+			double calibratedValue = mCalibCoef * (double)indata1.qlong + bCalibCoef;
+			h_spectrum->Fill(calibratedValue);
+		}
+	}
+	// return
+	return h_spectrum;
+}
+
+
+TH1D* getHistoForChannelFromTreeWithCalibration(
+	const char *name_file,
+	short chan,
+	int numBins,
+	double minX,
+	double maxX,
+	double mCalibCoef,
+	double bCalibCoef
+) {
+	// variables
+	slimport_data_t indata;
+	TFile *infile = new TFile(name_file);
+	TTree *intree = (TTree*)infile->Get("acq_tree_0");
+	TBranch *inbranch = intree->GetBranch(Form("acq_ch%d",chan));
+	inbranch->SetAddress(&indata.timetag);
+	TH1D *h_spectrum = new TH1D("h_spectrum","Total spectrum",numBins,minX,maxX);
+	// histogram filling
+	for (int i=0; i<inbranch->GetEntries(); i++) {
+		inbranch->GetEntry(i);
+		double calibratedValue = mCalibCoef * (double)indata.qlong + bCalibCoef;
+		h_spectrum->Fill(calibratedValue);
 	}
 	// return
 	return h_spectrum;
