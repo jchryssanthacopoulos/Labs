@@ -1,2 +1,7 @@
 changes david branch
 These are some notes
+
+Time calibration:
+Up calibration: m,b = [0.0012296920435, 1.380617225751]
+Down calibration: m,b = [ 1.23649391e-03, -3.78936582e+00]
+UPDOWN calibration: m, b = [ 1.32253142e-03, -3.37867572e+00]
