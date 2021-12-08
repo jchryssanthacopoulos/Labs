@@ -1,0 +1,7 @@
+Some simple c++ programs to familiarize:
+	class_examples.cpp
+	problem.cpp
+	write_binary_file.cpp
+Please modyfy them, and find errors!
+compile with: g++ name.cpp
+run with: ./a.out
