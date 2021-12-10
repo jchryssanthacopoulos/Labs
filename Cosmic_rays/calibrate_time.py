@@ -46,25 +46,26 @@ if __name__ == "__main__":
     print(f"Intercept = {b}")
     print(f"R^2 = {r2}")
 
-    # plt.figure(figsize=(12, 8))
+    plt.figure(figsize=(9, 6))
     if channel_sigma_values:
         plt.errorbar(x, y, xerr=channel_sigma_values, fmt='.', c='b')
     else:
-        plt.plot(x, y, 'b.', markersize=10)
+        plt.plot(x, y, 'b.', markersize=30)
 
     x_interp = np.linspace(x[0] - 10, x[-1] + 10, 100)
     y_interp = [m * x_i + b for x_i in x_interp]
 
     plt.rcParams.update({'font.size': 17})
 
-    label = "m = {:.2f}, b = {:.2f}".format(m, b)
+    label = "m = {:.2e}, b = {:.2f}".format(m, b)
     plt.plot(x_interp, y_interp, c='k', label=label)
     plt.grid()
     plt.legend()
     plt.xticks(fontsize=17)
     plt.yticks(fontsize=17)
     plt.xlabel("Channel", fontsize=17)
-    plt.ylabel("Time (ns)", fontsize=17)
+    plt.ylabel("Delay (ns)", fontsize=17)
     plt.title("$R^2 = {:.2f}$".format(r2))
     # plt.tight_layout()
     plt.show()
+    plt.savefig("figures/up_time_calibration.pdf")
