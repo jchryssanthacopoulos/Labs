@@ -8,10 +8,10 @@
 
 
 void plot_position_calibration() {
-    hist_up = getHistoForChannelFromTreeWithCalibration(
+    TH1D *hist_up = getHistoForChannelFromTreeWithCalibration(
         "files/overnight_after_fix_coinc_remapping.root", 1, 400, 0, 1.5, 0.00010914992943457062, -0.7429201535521206
     );
-    hist_down = getHistoForChannelFromTreeWithCalibration(
+    TH1D *hist_down = getHistoForChannelFromTreeWithCalibration(
         "files/overnight_after_fix_coinc_remapping.root", 2, 400, 0, 1.5, 0.0001066245854969239, -1.1976638553317625
     );
 
@@ -22,6 +22,7 @@ void plot_position_calibration() {
     hist_down->SetLineColor(2);
 
     auto c1 = new TCanvas("c1","c1",0,0,700,600);
+    c1->SetGrid();
     gStyle->SetPadLeftMargin(0.15);
 
     hist_up->Draw();
@@ -48,11 +49,11 @@ void plot_position_calibration() {
 
 
 void plot_position_calibration_peaks() {
-    hist_up = getHistoWithFilterFromChannelWithCalibration(
+    TH1D *hist_up = getHistoWithFilterFromChannelWithCalibration(
         "files/overnight_after_fix_coinc_remapping.root", "", 400, 0, 1.5, 1, 3, 5000, 10000,
         0.00010914992943457062, -0.7429201535521206
     );
-    hist_down = getHistoWithFilterFromChannelWithCalibration(
+    TH1D *hist_down = getHistoWithFilterFromChannelWithCalibration(
         "files/overnight_after_fix_coinc_remapping.root", "", 400, 0, 1.5, 2, 3, 5000, 10000,
         0.0001066245854969239, -1.1976638553317625
     );
@@ -64,6 +65,7 @@ void plot_position_calibration_peaks() {
     hist_down->SetLineColor(2);
 
     auto c1 = new TCanvas("c1","c1",0,0,700,600);
+    c1->SetGrid();
     gStyle->SetPadLeftMargin(0.12);
 
     hist_up->GetYaxis()->SetRangeUser(0., 60.);
